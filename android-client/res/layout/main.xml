@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+    <Button
+            android:id="@+id/show_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Show System Parameters"
+            />
+    <EditText
+            android:id="@+id/ip_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+    <Button
+            android:id="@+id/download_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Download File"
+            />
+    <TextView
+            android:id="@+id/parameters"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:lines="4"
+            android:text="The text will be here"
+            />
+</LinearLayout>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_sample-apk" default="compile.module.sample-apk">
+  <dirname property="module.sample-apk.basedir" file="${ant.file.module_sample-apk}"/>
+  
+  <property name="module.jdk.home.sample-apk" value="${jdk.home.android_2.3.3_platform}"/>
+  <property name="module.jdk.bin.sample-apk" value="${jdk.bin.android_2.3.3_platform}"/>
+  <property name="module.jdk.classpath.sample-apk" value="jdk.classpath.android_2.3.3_platform"/>
+  
+  <property name="compiler.args.sample-apk" value="${compiler.args}"/>
+  
+  <property name="sample-apk.output.dir" value="${module.sample-apk.basedir}/out/production/sample-apk"/>
+  <property name="sample-apk.testoutput.dir" value="${module.sample-apk.basedir}/out/test/sample-apk"/>
+  
+  <path id="sample-apk.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="sample-apk.module.production.classpath">
+    <path refid="${module.jdk.classpath.sample-apk}"/>
+  </path>
+  
+  <path id="sample-apk.runtime.production.module.classpath">
+    <pathelement location="${sample-apk.output.dir}"/>
+  </path>
+  
+  <path id="sample-apk.module.classpath">
+    <path refid="${module.jdk.classpath.sample-apk}"/>
+    <pathelement location="${sample-apk.output.dir}"/>
+  </path>
+  
+  <path id="sample-apk.runtime.module.classpath">
+    <pathelement location="${sample-apk.testoutput.dir}"/>
+    <pathelement location="${sample-apk.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.sample-apk">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.sample-apk">
+    <patternset refid="excluded.from.module.sample-apk"/>
+  </patternset>
+  
+  <path id="sample-apk.module.sourcepath">
+    <dirset dir="${module.sample-apk.basedir}">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.sample-apk" depends="compile.module.sample-apk.production,compile.module.sample-apk.tests" description="Compile module sample-apk"/>
+  
+  <target name="compile.module.sample-apk.production" depends="register.custom.compilers" description="Compile module sample-apk; production classes">
+    <mkdir dir="${sample-apk.output.dir}"/>
+    <javac2 destdir="${sample-apk.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.sample-apk}/javac">
+      <compilerarg line="${compiler.args.sample-apk}"/>
+      <bootclasspath refid="sample-apk.module.bootclasspath"/>
+      <classpath refid="sample-apk.module.production.classpath"/>
+      <src refid="sample-apk.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.sample-apk"/>
+    </javac2>
+    
+    <copy todir="${sample-apk.output.dir}">
+      <fileset dir="${module.sample-apk.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.sample-apk.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.sample-apk.tests" depends="register.custom.compilers,compile.module.sample-apk.production" description="compile module sample-apk; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.sample-apk" description="cleanup module">
+    <delete dir="${sample-apk.output.dir}"/>
+    <delete dir="${sample-apk.testoutput.dir}"/>
+  </target>
+</project>
