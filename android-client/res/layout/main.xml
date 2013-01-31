@@ -10,16 +10,27 @@
             android:layout_height="wrap_content"
             android:text="Show System Parameters"
             />
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Server IP or host name:"
+            />
     <EditText
             android:id="@+id/ip_input"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             />
     <Button
-            android:id="@+id/download_button"
+            android:id="@+id/download_apk"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Download File"
+            android:text="Download APK from server"
+            />
+    <Button
+            android:id="@+id/download_so"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Download SO from server"
             />
     <TextView
             android:id="@+id/parameters"
