@@ -3,7 +3,7 @@ package com.github.avereshchagin.hpc.utils;
 import android.util.Log;
 
 public class NativeLibraryLoader {
-    
+
     private static final String TAG = "NativeLibraryLoader";
 
     private NativeLibraryLoader() {

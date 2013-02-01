@@ -6,6 +6,6 @@ public class Application {
 
     public static String main(String[] args) {
         Log.d("main", "APK started");
-        return "Hello from APK";
+        return "Warm greetings from APK";
     }
 }
