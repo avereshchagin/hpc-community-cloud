@@ -1,11 +1,13 @@
 package com.github.avereshchagin.hpc.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.github.avereshchagin.hpc.R;
 import com.github.avereshchagin.hpc.utils.ApkLoader;
 import com.github.avereshchagin.hpc.utils.NativeLibraryLoader;
@@ -21,6 +23,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static final String APK_NAME = "sample-apk.apk";
     private static final String SO_NAME = "library.so";
 
+    private static final int REQUEST_AUTH = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         findViewById(R.id.download_apk).setOnClickListener(this);
         findViewById(R.id.download_so).setOnClickListener(this);
+
+        Intent authIntent = new Intent(this, AuthActivity.class);
+        startActivityForResult(authIntent, REQUEST_AUTH);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "result");
+        if (requestCode == REQUEST_AUTH && resultCode == RESULT_OK) {
+            Log.d(TAG, "auth");
+            if (data.getBooleanExtra("result", false)) {
+                Log.d(TAG, "ok");
+                Toast toast = Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 
     private static void downloadFileTo(String source, String destination) {
